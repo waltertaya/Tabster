@@ -1,0 +1,94 @@
+body {
+    margin: 0;
+    padding: 20px;
+    width: 300px;
+    height: 400px;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+  }  
+  
+  h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  /* Button styling */
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
+  
+  .btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    width: 100%;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Input field styling */
+  .inputs {
+    margin-top: 20px;
+    width: 100%;
+  }
+  
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: white;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input-field:focus {
+    border-color: #4CAF50;
+  }
+  
+  /* Layout Adjustments */
+  input::placeholder {
+    color: #888;
+  }
+  
+  @media (max-width: 320px) {
+    .container {
+      width: 100%;
+    }
+  
+    .btn {
+      font-size: 14px;
+      padding: 10px;
+    }
+  
+    h1 {
+      font-size: 20px;
+    }
+
+}
