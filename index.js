@@ -1,153 +1,115 @@
-chrome.tabs.query({}, function(tabs) {
-  let domainGroups = {};
-
-  // Categorize tabs by domain
-  tabs.forEach(tab => {
-      try {
-          let url = new URL(tab.url);
-          let domain = url.hostname;
-
-          if (!domainGroups[domain]) {
-              domainGroups[domain] = [];
-          }
-          domainGroups[domain].push(tab.id);
-      } catch (error) {
-          console.error(`Error processing URL: ${tab.url} - ${error.message}`);
-      }
-  });
-
-  // Create groups for each domain
-  Object.keys(domainGroups).forEach(domain => {
-      chrome.tabs.group({ tabIds: domainGroups[domain] }, function(groupId) {
-          if (chrome.runtime.lastError) {
-              console.error(`Error creating group for domain ${domain}: ${chrome.runtime.lastError.message}`);
-              return;
-          }
-          console.log(`Group created for domain ${domain} with groupId ${groupId}`);
-      });
-  });
-});
-
-// Function to manually group selected tabs
+// Function to group selected tabs
 function groupSelectedTabs() {
   chrome.tabs.query({ highlighted: true, currentWindow: true }, function(tabs) {
-      let tabIds = tabs.map(tab => tab.id);
+    let tabIds = tabs.map(tab => tab.id);
 
-      // Group the selected tabs
+    if (tabIds.length > 0) {
       chrome.tabs.group({ tabIds: tabIds }, function(groupId) {
-          if (chrome.runtime.lastError) {
-              console.error(`Error grouping selected tabs: ${chrome.runtime.lastError.message}`);
-              return;
-          }
-          console.log(`Tabs grouped with groupId: ${groupId}`);
+        if (chrome.runtime.lastError) {
+          console.error(`Error grouping selected tabs: ${chrome.runtime.lastError.message}`);
+          return;
+        }
+        console.log(`Tabs grouped with groupId: ${groupId}`);
       });
+    } else {
+      console.warn("No tabs selected for grouping.");
+    }
   });
 }
 
-// Function to rename a group dynamically
+// Function to rename a group
 function renameGroup(groupName) {
-  // Query all tab groups dynamically
   chrome.tabGroups.query({}, function(groups) {
-      if (groups.length === 0) {
-          console.error("No groups available to rename.");
-          return;
-      }
-
-      // Use the first groupId dynamically
+    if (groups.length > 0) {
       const groupId = groups[0].id;
-
-      // Rename the group
       chrome.tabGroups.update(groupId, { title: groupName }, function() {
-          if (chrome.runtime.lastError) {
-              console.error(`Error renaming group: ${chrome.runtime.lastError.message}`);
-              return;
-          }
-          console.log(`Group ${groupId} renamed to ${groupName}`);
+        if (chrome.runtime.lastError) {
+          console.error(`Error renaming group: ${chrome.runtime.lastError.message}`);
+          return;
+        }
+        console.log(`Group ${groupId} renamed to ${groupName}`);
       });
+    } else {
+      console.error("No groups available to rename.");
+    }
   });
 }
 
 // Save tab group to local storage
 function saveTabGroup() {
-  // Query groups dynamically
   chrome.tabGroups.query({}, function(groups) {
-      if (groups.length === 0) {
-          console.error("No groups available to save.");
-          return;
-      }
-
-      const groupId = groups[0].id; // Get dynamic groupId
+    if (groups.length > 0) {
+      const groupId = groups[0].id; // Use first available groupId
 
       chrome.tabs.query({ groupId: groupId }, function(tabs) {
-          if (chrome.runtime.lastError) {
-              console.error(`Error retrieving tabs for group ${groupId}: ${chrome.runtime.lastError.message}`);
-              return;
-          }
+        if (chrome.runtime.lastError) {
+          console.error(`Error retrieving tabs for group ${groupId}: ${chrome.runtime.lastError.message}`);
+          return;
+        }
 
-          let tabUrls = tabs.map(tab => tab.url);
-          chrome.storage.local.set({ [groupId]: tabUrls }, function() {
-              if (chrome.runtime.lastError) {
-                  console.error(`Error saving group ${groupId}: ${chrome.runtime.lastError.message}`);
-                  return;
-              }
-              console.log(`Tab group ${groupId} saved.`);
-          });
+        let tabUrls = tabs.map(tab => tab.url);
+        chrome.storage.local.set({ [groupId]: tabUrls }, function() {
+          if (chrome.runtime.lastError) {
+            console.error(`Error saving group ${groupId}: ${chrome.runtime.lastError.message}`);
+            return;
+          }
+          console.log(`Tab group ${groupId} saved.`);
+        });
       });
+    } else {
+      console.error("No groups available to save.");
+    }
   });
 }
 
 // Restore tab group from local storage
 function restoreTabGroup() {
-  // Query groups dynamically
   chrome.tabGroups.query({}, function(groups) {
-      if (groups.length === 0) {
-          console.error("No groups available to restore.");
-          return;
-      }
-
-      const groupId = groups[0].id; // Get dynamic groupId
+    if (groups.length > 0) {
+      const groupId = groups[0].id; // Use first available groupId
 
       chrome.storage.local.get([groupId], function(result) {
-          if (chrome.runtime.lastError) {
-              console.error(`Error restoring group ${groupId}: ${chrome.runtime.lastError.message}`);
-              return;
-          }
+        if (chrome.runtime.lastError) {
+          console.error(`Error restoring group ${groupId}: ${chrome.runtime.lastError.message}`);
+          return;
+        }
 
-          if (result[groupId]) {
-              result[groupId].forEach(url => {
-                  chrome.tabs.create({ url: url });
-              });
-              console.log(`Tab group ${groupId} restored.`);
-          } else {
-              console.error(`No data found for group ${groupId}`);
-          }
+        if (result[groupId]) {
+          result[groupId].forEach(url => {
+            chrome.tabs.create({ url: url });
+          });
+          console.log(`Tab group ${groupId} restored.`);
+        } else {
+          console.error(`No data found for group ${groupId}`);
+        }
       });
+    } else {
+      console.error("No groups available to restore.");
+    }
   });
 }
 
 // Search tabs within a group
 function searchTabsInGroup(query) {
-  // Query groups dynamically
   chrome.tabGroups.query({}, function(groups) {
-      if (groups.length === 0) {
-          console.error("No groups available to search.");
-          return;
-      }
-
-      const groupId = groups[0].id; // Get dynamic groupId
+    if (groups.length > 0) {
+      const groupId = groups[0].id; // Use first available groupId
 
       chrome.tabs.query({ groupId: groupId }, function(tabs) {
-          if (chrome.runtime.lastError) {
-              console.error(`Error searching tabs in group ${groupId}: ${chrome.runtime.lastError.message}`);
-              return;
-          }
+        if (chrome.runtime.lastError) {
+          console.error(`Error searching tabs in group ${groupId}: ${chrome.runtime.lastError.message}`);
+          return;
+        }
 
-          let filteredTabs = tabs.filter(tab =>
-              tab.title.includes(query) || tab.url.includes(query)
-          );
+        let filteredTabs = tabs.filter(tab =>
+          tab.title.includes(query) || tab.url.includes(query)
+        );
 
-          console.log(`Tabs matching "${query}":`, filteredTabs);
+        console.log(`Tabs matching "${query}":`, filteredTabs);
       });
+    } else {
+      console.error("No groups available to search.");
+    }
   });
 }
 
@@ -161,8 +123,18 @@ document.getElementById('renameGroupButton').addEventListener('click', function(
 document.getElementById('saveGroupButton').addEventListener('click', saveTabGroup);
 document.getElementById('restoreGroupButton').addEventListener('click', restoreTabGroup);
 
-// Example: Search for tabs in the first available group with the term "Google"
-document.getElementById('searchTabsButton').addEventListener('click', function() {
-  let query = document.getElementById('searchQueryInput').value;
+// Event listener for search input
+document.getElementById('searchInput').addEventListener('input', function() {
+  let query = this.value;
   searchTabsInGroup(query);
+});
+
+// Reset selections when the popup loads
+document.addEventListener('DOMContentLoaded', function() {
+  // Optionally clear or set initial states if needed
+  chrome.tabs.query({}, function(tabs) {
+    tabs.forEach(tab => {
+      chrome.tabs.update(tab.id, { highlighted: false });
+    });
+  });
 });
