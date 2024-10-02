@@ -47,5 +47,45 @@ function renameGroup() {
   });
 }
 
+function deleteLastGroup() {
+  chrome.tabGroups.query({ windowId: chrome.windows.WINDOW_ID_CURRENT }, (groups) => {
+    const latestGroup = groups[groups.length - 1];
+    if (latestGroup) {
+      chrome.tabs.query({ groupId: latestGroup.id }, (tabs) => {
+        const tabIds = tabs.map(tab => tab.id);
+        chrome.tabs.ungroup(tabIds, () => {
+          if (chrome.runtime.lastError) {
+            console.error(`Error ungrouping tabs: ${chrome.runtime.lastError.message}`);
+          } else {
+            console.log(`Group ${latestGroup.id} ungrouped and deleted.`);
+          }
+        });
+      });
+    } else {
+      console.error("No groups available to delete.");
+    }
+  });
+}
+
+
+function deleteAllGroups() {
+  chrome.tabGroups.query({ windowId: chrome.windows.WINDOW_ID_CURRENT }, (groups) => {
+    groups.forEach((group) => {
+      chrome.tabs.query({ groupId: group.id }, (tabs) => {
+        const tabIds = tabs.map(tab => tab.id);
+        chrome.tabs.ungroup(tabIds, () => {
+          if (chrome.runtime.lastError) {
+            console.error(`Error ungrouping tabs: ${chrome.runtime.lastError.message}`);
+          } else {
+            console.log(`Group ${group.id} ungrouped and deleted.`);
+          }
+        });
+      });
+    });
+  });
+}
+
 document.getElementById('groupTabsButton').addEventListener('click', groupUngroupedTabs);
 document.getElementById('renameGroupButton').addEventListener('click', renameGroup);
+document.getElementById('deleteLastGroup').addEventListener('click', deleteLastGroup);
+document.getElementById('deleteAllGroups').addEventListener('click', deleteAllGroups);
