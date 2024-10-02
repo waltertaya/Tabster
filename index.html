@@ -9,16 +9,18 @@
     
     <div class="buttons">
       <button id="groupTabsButton" class="btn">Group Selected Tabs</button>
+      <div class="inputs">
+        <input type="text" id="groupNameInput" class="input-field" placeholder="New Group Name">
+      </div>
       <button id="renameGroupButton" class="btn">Rename Group</button>
       <button id="saveGroupButton" class="btn">Save Group</button>
       <button id="restoreGroupButton" class="btn">Restore Group</button>
-      <button id="searchTabsButton" class="btn">Search Tabs</button> <!-- Added Search Button -->
+      <div class="inputs">
+        <input type="text" id="searchQueryInput" class="input-field" placeholder="Search Tabs">
+      </div>
+      <button id="searchTabsButton" class="btn">Search Tabs</button> 
     </div>
 
-    <div class="inputs">
-      <input type="text" id="groupNameInput" class="input-field" placeholder="New Group Name">
-      <input type="text" id="searchQueryInput" class="input-field" placeholder="Search Tabs"> <!-- Updated ID -->
-    </div>
   </div>
 
   <script src="index.js"></script>
