@@ -93,13 +93,19 @@ function deleteAllGroups() {
   });
 }
 
-// document.addEventListener('DOMContentLoaded', () => {
-//   chrome.tabGroups.query({ windowId: chrome.windows.WINDOW_ID_CURRENT }, (groups) => {
-//     groups.forEach((group) => {
-//       displayGroup(group.id);
-//     });
-//   });
-// });
+// close all tabs open in the current window
+function closeAllTabs() {
+  chrome.tabs.query({ currentWindow: true }, (tabs) => {
+    const tabIds = tabs.map(tab => tab.id);
+    chrome.tabs.remove(tabIds, () => {
+      if (chrome.runtime.lastError) {
+        console.error(`Error closing tabs: ${chrome.runtime.lastError.message}`);
+      } else {
+        console.log("All tabs closed.");
+      }
+    });
+  });
+}
 
 document.getElementById('groupTabsButton').addEventListener('click', groupUngroupedTabs);
 document.getElementById('renameGroupButton').addEventListener('click', renameGroup);
