@@ -1,59 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Raleway', sans-serif;
   margin: 0;
   padding: 20px;
-  width: 300px;
-  background-color: #f9f9f9;
-}
-.container {
-  display: flex;
-  flex-direction: column;
+  width: 320px;
+  justify-content: center;
   align-items: center;
+  margin: 0 auto;
+  padding: 10px;
+  background: rgba(15, 23, 42, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  color: #e2e8f0;
+  background: url("./images/tba2.jpeg");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+}
+p{
+  font-family: 'Rubik', sans-serif;
+  font-size: 12px;
+  color: #e2e8f0;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(194, 189, 189, 0.1) 0%,
+    rgba(255, 255, 255, 0.03) 100%
+  );
+  z-index: -1;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px;
+  margin-bottom: 15px;
+
+}
+.logo-cont{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.icon-img{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background-color: #0056b3;
+}
+.logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+
 }
 h1 {
   font-size: 18px;
   margin-bottom: 20px;
 }
 .btn {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #007bff;
+  background:linear-gradient(90deg, #0ea5e9 0%, #0056b3 100%);
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 15px;
   cursor: pointer;
+  font-family: 'Rubik', sans-serif;
+  margin-left: 20px;
+   box-shadow: 0 4px 30px rgba(81, 187, 206, 0.89);
+
+
 }
 .btn:hover {
   background-color: #0056b3;
+  font-family: 'Raleway', sans-serif;
+
 }
 .inputs {
-  width: 90%;
+  width: 80%;
   margin-bottom: 10px;
+  font-family: 'Raleway', sans-serif;
+ 
+
 }
 .input-field {
   width: 90%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  font-family: 'Raleway', sans-serif;
+  outline: none;
+margin-left: 20px;
+border-radius: 15px;
+  box-shadow: 0 4px 30px rgba(81, 187, 206, 0.89);
+
+  ::placeholder {
+    font-family: 'Raleway', sans-serif;
+    color: #ccc;
+  }
+  ::-webkit-input-placeholder {
+    font-family: 'Raleway', sans-serif;
+    color: #ccc;
+  }
+  &:focus {
+    border: 1px solid #007bff;
+  }
+  & :hover {
+    border: 1px solid #007bff;
+  }
+
 }
 .groupTabs {
   margin-top: 20px;
   width: 100%;
+  font-family: 'Raleway', sans-serif;
+
 }
 .groupTab {
   padding: 10px;
   margin-bottom: 10px;
   background-color: #e0e0e0;
   border-radius: 5px;
+  font-family: 'Raleway', sans-serif;
+
 }
-.delete {
+.lastgroup{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-direction: column;
+  font-family: 'Raleway', sans-serif;
+  width: 150px;
+  height: 40px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  flex-direction: row;
+
 }
-.delete button {
-  background-color: red;
+.allgroups{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Raleway', sans-serif;
+  width: 150px;
+  height: 40px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+
+
+}
+.delete{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+.btn-del {
+  background:linear-gradient(90deg, #475569 0%, #dc2626 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
   cursor: pointer;
+  font-family: 'Rubik', sans-serif;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  box-shadow: 0 4px 30px rgba(73, 160, 175, 0.1);
+}
+.icon-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 11px;
 }

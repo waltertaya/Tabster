@@ -4,20 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tabster</title>
-  <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="./popup.css">
+  <link rel="stylesheet" href="./styles.scss">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
   <div class="container">
+    <div class="logo-cont">
+      <div class="icon-img">
+        <img src="./images/icon.png" alt="Tabster Logo" class="logo">
+      </div>
     <h1>Tabster</h1>
-    <button id="groupTabsButton" class="btn">Group Tabs</button>
+    </div>
+
+    <button id="groupTabsButton" class="btn"><i class="fas fa-layer-group icon"></i> Group Tabs</button>
+
     <div class="inputs">
       <input type="text" id="groupNameInput" class="input-field" placeholder="Group Name">
     </div>
-    <button id="renameGroupButton" class="btn">Name Group</button>
+
+    <button id="renameGroupButton" class="btn"><i class="fas fa-edit icon"></i> Name Group</button>
+
     <div class="groupTabs"></div>
+
     <div class="delete">
-      <button id="deleteLastGroup" class="btn">Delete Last Group</button>
-      <button id="deleteAllGroups" class="btn">Delete All Groups</button>
+      <div class="lastgroup">
+       
+        <button id="deleteLastGroup" class="btn-del">
+          <div class="icon-container">
+            <i class="fas fa-trash-alt icon"></i>
+          </div>
+          <p> Delete Last Group</p>
+        </button>
+      </div>
+      <div class="allgroups">
+      
+        <button id="deleteAllGroups" class="btn-del">
+          <div class="icon-container">
+            <i class="fas fa-trash-alt icon"></i>
+          </div>
+          <p>Delete All Groups</p>
+        </button>
+      </div>
     </div>
   </div>
 

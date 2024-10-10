@@ -24,6 +24,14 @@ function displayGroup(groupId) {
     const groupElement = document.createElement('div');
     groupElement.className = 'groupTab';
     groupElement.textContent = `Group ${groupId}: ${group.title || 'Group'}`;
+    groupElement.style.backgroundColor ="#1e293b";
+    groupElement.style.width = "70%";
+    groupElement.style.marginLeft = "25px";
+    groupElement.style.padding = "10px";
+    groupElement.style.borderRadius = "15px";
+    groupElement.style.color = "white";
+    groupElement.style.marginTop = "-10px";
+    groupElement.style.border = "2px solid #64748b";
     groupTabsDiv.appendChild(groupElement);
   });
 }
