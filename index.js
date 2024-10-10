@@ -93,6 +93,14 @@ function deleteAllGroups() {
   });
 }
 
+// document.addEventListener('DOMContentLoaded', () => {
+//   chrome.tabGroups.query({ windowId: chrome.windows.WINDOW_ID_CURRENT }, (groups) => {
+//     groups.forEach((group) => {
+//       displayGroup(group.id);
+//     });
+//   });
+// });
+
 document.getElementById('groupTabsButton').addEventListener('click', groupUngroupedTabs);
 document.getElementById('renameGroupButton').addEventListener('click', renameGroup);
 document.getElementById('deleteLastGroup').addEventListener('click', deleteLastGroup);
