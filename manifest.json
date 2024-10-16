@@ -11,8 +11,6 @@
     }
   },
   "permissions": [
-    "tabs",
-    "tabGroups"
   ],
   "icons": {
     "16": "images/icon16.png",
